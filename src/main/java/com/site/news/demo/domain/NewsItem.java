@@ -16,7 +16,7 @@ public class NewsItem {
     private String tag;
     private String image;
     private String content;
-    Date date;
+    private Date date;
 
     public NewsItem() {}
 
