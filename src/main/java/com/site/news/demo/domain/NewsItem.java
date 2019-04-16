@@ -20,6 +20,12 @@ public class NewsItem {
 
     public NewsItem() {}
 
+    public NewsItem(String title, String tag, String content) {
+        this.title = title;
+        this.tag = tag;
+        this.content = content;
+    }
+
     public NewsItem(Integer id, String title, String tag, String image, String content, Date date) {
         this.id = id;
         this.title = title;

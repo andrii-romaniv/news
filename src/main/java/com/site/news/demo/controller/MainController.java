@@ -4,9 +4,9 @@ import com.site.news.demo.domain.NewsItem;
 import com.site.news.demo.repository.NewsItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import sun.plugin2.message.Message;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -21,5 +21,14 @@ public class MainController {
         model.put("newsItem",newsItems);
         return "main";
     }
-    
+
+    @PostMapping
+    public String addNewNewsItem(@RequestParam String title,@RequestParam String tag,@RequestParam String content,
+                                 Map<String,Object> model){
+        NewsItem newsItem = new NewsItem(title,tag,content);
+        newsItemRepo.save(newsItem);
+        Iterable<NewsItem>newsItems=newsItemRepo.findAll();
+        model.put("newsItem",newsItems);
+        return "main";
+    }
 }

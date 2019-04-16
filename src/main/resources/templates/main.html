@@ -5,6 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<form method="post">
+    <h4>Add news:</h4>
+    <p><input type="text" name="title" placeholder="Enter a title..."/></p>
+    <p><input type="text" name="tag" placeholder="Enter a tag"/></p>
+    <p><textarea name="content"></textarea></p>
+    <p><button type="submit">Publish</button></p>
+</form>
 <h2>News:</h2>
 <div th:each="it:${newsItem}">
     <h3 th:text="${it.title}"/>
