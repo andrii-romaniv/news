@@ -26,14 +26,14 @@ public class NewsItem {
         this.content = content;
     }
 
-    public NewsItem(Integer id, String title, String tag, String image, String content, Date date) {
-        this.id = id;
-        this.title = title;
-        this.tag = tag;
-        this.image = image;
-        this.content = content;
-        this.date = date;
-    }
+//    public NewsItem(Integer id, String title, String tag, String image, String content, Date date) {
+//        this.id = id;
+//        this.title = title;
+//        this.tag = tag;
+//        this.image = image;
+//        this.content = content;
+//        this.date = date;
+//    }
 
     public Integer getId() {
         return id;
