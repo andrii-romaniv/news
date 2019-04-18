@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<p><a th:href="@{/addnews}">Add news</a></p>
 <h2>News:</h2>
 <div th:each="it:${newsItem}">
     <h3 th:text="${it.title}"/>
