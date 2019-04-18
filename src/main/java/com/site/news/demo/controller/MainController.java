@@ -28,29 +28,7 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping
-    public String addNewNewsItem(@RequestParam String title,
-                                 @RequestParam String tag,
-                                 @RequestParam String content,
-                                @RequestParam("image") MultipartFile image,
-                                Model model
-    ) throws IOException {
-        NewsItem newsItem = new NewsItem(title,tag,content);
 
-        if(image!=null && !image.getOriginalFilename().isEmpty()){
-            File uploadDirectory=new File(uploadPath);
-            if(!uploadDirectory.exists())uploadDirectory.mkdir();
-
-            String genereteName= UUID.randomUUID().toString();
-            String resultFilename=genereteName+"."+image.getOriginalFilename();
-            image.transferTo(new File(uploadPath+"/"+resultFilename));
-            newsItem.setImage(resultFilename);
-        }
-        newsItemRepo.save(newsItem);
-        Iterable<NewsItem>newsItems=newsItemRepo.findAll();
-        model.addAttribute("newsItem",newsItems);
-        return "main";
-    }
 
 
 }
