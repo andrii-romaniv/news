@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <title>Login page</title>
 </head>
 <body>
 <div th:if="${param.error}">
-    <p>Invalid username and password.</p>
+    <script>alert('Invalid username and password.');</script>
 </div>
 <form th:action="@{/login}" method="post">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
