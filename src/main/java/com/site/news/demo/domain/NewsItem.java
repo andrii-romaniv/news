@@ -1,21 +1,30 @@
 package com.site.news.demo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.sql.Date;
 
+@Data
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
+@Table(name="news_item")
 public class NewsItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name="title", unique = true,nullable = false)
     private String title;
+    @Column(name="tag", unique = true,nullable = false)
     private String tag;
-    private String image;
+    @Column(name="content", unique = true,nullable = false)
     private String content;
+    private String image;
+
     private Date date;
 
     public NewsItem() {}
@@ -26,14 +35,6 @@ public class NewsItem {
         this.content = content;
     }
 
-//    public NewsItem(Integer id, String title, String tag, String image, String content, Date date) {
-//        this.id = id;
-//        this.title = title;
-//        this.tag = tag;
-//        this.image = image;
-//        this.content = content;
-//        this.date = date;
-//    }
 
     public Integer getId() {
         return id;
