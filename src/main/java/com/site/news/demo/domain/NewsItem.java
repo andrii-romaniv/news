@@ -27,14 +27,6 @@ public class NewsItem {
 
     private Date date;
 
-    public NewsItem() {}
-
-    public NewsItem(String title, String tag, String content) {
-        this.title = title;
-        this.tag = tag;
-        this.content = content;
-    }
-
 
     public Integer getId() {
         return id;
