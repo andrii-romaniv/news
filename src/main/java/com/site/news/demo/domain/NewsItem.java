@@ -27,7 +27,6 @@ public class NewsItem {
 
     private Date date;
 
-
     public Integer getId() {
         return id;
     }

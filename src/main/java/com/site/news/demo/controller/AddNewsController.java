@@ -29,15 +29,15 @@ public class AddNewsController {
     }
 
     @PostMapping("/addnews")
-    public String addNewNews(NewsItem newsItem,@RequestParam("image_file") MultipartFile image
+    public String addNewNews(NewsItem newsItem,@RequestParam("file") MultipartFile image
     ) throws IOException {
         if(image!=null && !image.getOriginalFilename().isEmpty()){
             File uploadDirectory=new File(uploadPath);
             if(!uploadDirectory.exists())uploadDirectory.mkdir();
             String genereteName= UUID.randomUUID().toString();
-            String resultFilename=genereteName+"."+image.getOriginalFilename();
+            String resultFilename=genereteName+"-"+image.getOriginalFilename();
             image.transferTo(new File(uploadPath+"/"+resultFilename));
-            newsItem.setImage(resultFilename);
+            newsItem.setImage("/img/"+resultFilename);
         }
         newsItemRepo.save(newsItem);
         return "redirect:/";
