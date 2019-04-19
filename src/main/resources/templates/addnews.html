@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add new news</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="@{/addnews}" method="post" enctype="multipart/form-data">
+    <h4>Add news:</h4>
+    <p><input type="text" name="title" placeholder="Enter a title..."/></p>
+    <p><input type="text" name="tag" placeholder="Enter a tag..."/></p>
+    <p><input type="file" name="file"/></p>
+    <p>Enter a text:</p>
+    <p><textarea name="content"></textarea></p>
+    <p><button type="submit">Publish</button></p>
+</form>
+</body>
+</html>
