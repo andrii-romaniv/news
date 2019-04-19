@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode
@@ -17,14 +17,16 @@ public class NewsItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name="title", unique = true,nullable = false)
+    @Column(name="title",unique = true,nullable = false)
     private String title;
-    @Column(name="tag", unique = true,nullable = false)
+    @Column(name="tag",nullable = false)
     private String tag;
-    @Column(name="content", unique = true,nullable = false)
+    @Column(name="content",nullable = false)
     private String content;
+    @Column(name="image",nullable = false)
     private String image;
-
+    @Column(name="date",nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     public Integer getId() {

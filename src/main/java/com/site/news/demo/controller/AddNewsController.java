@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 @Controller
@@ -38,6 +39,7 @@ public class AddNewsController {
             String resultFilename=genereteName+"-"+image.getOriginalFilename();
             image.transferTo(new File(uploadPath+"/"+resultFilename));
             newsItem.setImage("/img/"+resultFilename);
+            newsItem.setDate(new Date());
         }
         newsItemRepo.save(newsItem);
         return "redirect:/";

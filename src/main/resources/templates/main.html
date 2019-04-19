@@ -10,6 +10,7 @@
 <div th:each="it:${newsItem}">
     <h3 th:text="${it.title}"/>
    <p><i th:text="${it.tag}"/></p>
+    <p><i th:text="${it.date}"/></p>
     <p><img th:src="@{${it.image}}" height="250" width="80%"/></p>
     <p th:text="${it.content}"/>
 </div>
