@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users panel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!--<div th:each="it:${newsItem}">-->
+<!--    <h3 th:text="${it.title}"/>-->
+<!--    <p><i th:text="${it.tag}"/></p>-->
+<!--    <p><i th:text="${it.date}"/></p>-->
+<!--    <p><img th:src="@{${it.image}}" height="250" width="80%"/></p>-->
+<!--    <p th:text="${it.content}"/>-->
+<!--</div>-->
+
+<table>
+    <thead>
+    <tr>
+    <th width="25%" align="left">User name</th>
+    <th width="25%" align="left">Role</th>
+    <th width="50%" align="left">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:each="it:${users}">
+        <tr>
+            <td th:text="${it.username}"/>
+            <td th:text="${it.authority.getAuthority()}"/>
+            <td th:text="${it.email}"/>
+        </tr>
+    </div>
+    </tbody>
+</table>
+</body>
+</html>
