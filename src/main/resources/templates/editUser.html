@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="@{/edituser}" method="post">
+    <p>Name:<input type="text" name="username" th:value="${user.username}"/></p>
+    <p>Email:<input type="text" name="email" th:value="${user.email}"/></p>
+    <div th:each="it:${roles}">
+        <p><input type="radio" name="role" th:value="${it}"/><label th:text="${it}"/></p>
+    </div>
+    <p><button type="submit">Save</button></p>
+</form>
+</body>
+</html>
