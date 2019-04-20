@@ -29,7 +29,7 @@ public class MainController {
         return "main";
     }
 
-    private static Sort SortById(){
+    private Sort SortById(){
         return new Sort(Sort.Direction.DESC,"id");
     }
 
