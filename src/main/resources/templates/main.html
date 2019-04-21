@@ -5,14 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p><a th:href="@{/addnews}">Add news</a></p>
+<div>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/addnews}">Add news</a>
+    <a th:href="@{/users}">Users panel</a>
+    <a th:href="@{/registration}">Registration</a>
+</div>
 <h2>News:</h2>
 <div th:each="it:${newsItem}">
     <h3 th:text="${it.title}"/>
    <p><i th:text="${it.tag}"/></p>
     <p><i th:text="${it.date}"/></p>
-<!--    <a th:href="@{/users/{id}(id=${it.id})}">-->
-    <p><img th:src="@{/img/{image}(image=${it.image})}" height="250" width="80%"/></p>
+    <p><img th:src="@{/img/{image}(image=${it.image})}" height="250" width="50%"/></p>
     <p th:text="${it.content}"/>
 </div>
 </body>
