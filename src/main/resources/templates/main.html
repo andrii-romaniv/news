@@ -11,7 +11,8 @@
     <h3 th:text="${it.title}"/>
    <p><i th:text="${it.tag}"/></p>
     <p><i th:text="${it.date}"/></p>
-    <p><img th:src="@{${it.image}}" height="250" width="80%"/></p>
+<!--    <a th:href="@{/users/{id}(id=${it.id})}">-->
+    <p><img th:src="@{/img/{image}(image=${it.image})}" height="250" width="80%"/></p>
     <p th:text="${it.content}"/>
 </div>
 </body>
