@@ -6,10 +6,14 @@
 </head>
 <body>
 <form th:action="@{/edituser}" method="post">
+    <input type="hidden" name="id" th:value="${user.id}"/>
     <p>Name:<input type="text" name="username" th:value="${user.username}"/></p>
+    <p>Password:<input type="text" name="password" th:value="${user.password}"/></p>
     <p>Email:<input type="text" name="email" th:value="${user.email}"/></p>
     <div th:each="it:${roles}">
-        <p><input type="radio" name="role" th:value="${it}"/><label th:text="${it}"/></p>
+        <p><input type="radio" name="authority" th:value="${it}" th:checked="${it == user.authority}"/>
+            <label th:text="${it}"/>
+        </p>
     </div>
     <p><button type="submit">Save</button></p>
 </form>

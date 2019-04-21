@@ -20,6 +20,8 @@
             <td th:text="${it.authority.getAuthority()}"/>
             <td th:text="${it.email}"/>
             <td><a th:href="@{/edituser/{id}(id=${it.id})}">Edit</a></td>
+            <td><a th:href="@{/users/{id}(id=${it.id})}">Delete</a></td>
+
         </tr>
     </div>
     </tbody>

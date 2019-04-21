@@ -4,7 +4,7 @@ import com.site.news.demo.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UsersPanelController {
@@ -17,5 +17,10 @@ public class UsersPanelController {
         return "usersPanel";
     }
 
-
+    @RequestMapping(path = "/users/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable long id){
+        userRepo.delete(id);
+        if(userRepo.count()!=0)return "redirect:/users";
+        else return "redirect:/";
+    }
 }
