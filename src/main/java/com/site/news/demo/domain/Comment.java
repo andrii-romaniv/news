@@ -19,11 +19,11 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    @Column(name="user_id", nullable = false)
+    @JoinColumn(name="user_id", nullable = false)
     private User author;
 
     @ManyToOne
-    @Column(name="news_item_id", nullable = false)
+    @JoinColumn(name="news_item_id", nullable = false)
     private NewsItem news;
 
     @Column(name="content", nullable = false)
