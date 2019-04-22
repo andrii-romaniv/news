@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>News</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div><a th:href="@{/}">Home</a></div>
+<div th:each="it:${newsItem}" >
+    <h3 th:text="${it.title}" />
+    <p><i th:text="${it.date}"/></p>
+    <p><img th:src="@{/img/{image}(image=${it.image})}" height="350" width="80%"/></p>
+    <p><i th:text="${it.tag}"/></p>
+    <p th:text="${it.content}"/>
+</div>
+</body>
+</html>

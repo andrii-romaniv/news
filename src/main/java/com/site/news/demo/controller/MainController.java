@@ -24,8 +24,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model model){
-        Iterable<NewsItem>newsItems=newsItemRepo.findAll(SortById());
-        model.addAttribute("newsItem",newsItems);
+        model.addAttribute("newsItem",newsItemRepo.findAll(SortById()));
         return "main";
     }
 

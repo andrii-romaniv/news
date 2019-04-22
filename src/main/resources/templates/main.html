@@ -12,12 +12,13 @@
     <a th:href="@{/registration}">Registration</a>
 </div>
 <h2>News:</h2>
-<div th:each="it:${newsItem}">
-    <h3 th:text="${it.title}"/>
-   <p><i th:text="${it.tag}"/></p>
-    <p><i th:text="${it.date}"/></p>
+<!--<a th:href="@{/edituser/{id}(id=${it.id})}">Edit</a>-->
+<div th:each="it:${newsItem}" >
+   <h3> <a th:href="@{/news/{title}(title=${it.title})}" th:text="${it.title}"/></h3>
+<!--    <p><i th:text="${it.tag}"/></p>-->
     <p><img th:src="@{/img/{image}(image=${it.image})}" height="250" width="50%"/></p>
-    <p th:text="${it.content}"/>
+<!--    <p><i th:text="${it.date}"/></p>-->
+<!--    <p th:text="${it.content}"/>-->
 </div>
 </body>
 </html>
