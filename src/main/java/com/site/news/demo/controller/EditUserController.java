@@ -21,7 +21,9 @@ UserRepo userRepo;
     }
 
     @PostMapping
-    public String save(User user){
+    public String save(@RequestParam long id, Authority authority){
+        User user=userRepo.findOne(id);
+        user.setAuthority(authority);
         userRepo.save(user);
         return "redirect:/users";
     }
