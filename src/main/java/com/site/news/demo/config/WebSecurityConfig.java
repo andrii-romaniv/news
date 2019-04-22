@@ -32,11 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    @Bean
-    public PasswordEncoder getpasswordEncoder(){
-        return new BCryptPasswordEncoder(6);
-    }
-
     @Autowired
     private UserService userService;
 

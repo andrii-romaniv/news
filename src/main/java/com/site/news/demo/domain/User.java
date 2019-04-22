@@ -32,8 +32,7 @@ public class User implements UserDetails {
     
     private Authority authority;
 
-    @Lob
-    private byte[] image;
+    private String image;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -102,11 +101,11 @@ public class User implements UserDetails {
         this.authority = authority;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
