@@ -5,8 +5,14 @@
 </head>
 <body>
 <h4>Create your personal account:</h4>
-<form th:action="@{/registration}" method="post">
-    <p><label> User Name : <input type="text" name="userName"/> </label></p>
+<form th:action="@{/registration}" method="post" enctype="multipart/form-data">
+
+    <div>
+        <label for="file" >Input your profile image</label>
+        <input id="file" type="file" name="file" accept="image/*"/>
+    </div>
+
+    <p><label> User Name : <input type="text" name="username"/> </label></p>
     <p><label> Password: <input type="password" name="password"/> </label></p>
     <p><label> Email: <input type="text" name="email"/> </label></p>
     <p><input type="submit" value="Sign up"/></p>
