@@ -19,6 +19,15 @@ public class UsersPanelController {
         return "usersPanel";
     }
 
+    @PostMapping("find")
+    public String findUser(@RequestParam String find,Model model){
+        if(find!=null && !find.isEmpty())model
+                .addAttribute("users",userRepo.findByUsernameStartingWith(find));
+        else
+            model.addAttribute("users",userRepo.findAll());
+        return "usersPanel";
+    }
+
     @RequestMapping(path = "/users/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable long id){
         userRepo.delete(id);
