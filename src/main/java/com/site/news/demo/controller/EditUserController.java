@@ -21,10 +21,10 @@ UserRepo userRepo;
     }
 
     @PostMapping
-    public String save(@RequestParam long id, Authority authority){
-        User user=userRepo.findOne(id);
-        user.setAuthority(authority);
+    public String save(User user){
         userRepo.save(user);
         return "redirect:/users";
     }
+
+
 }
