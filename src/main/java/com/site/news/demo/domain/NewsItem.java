@@ -15,7 +15,7 @@ import java.util.Date;
 public class NewsItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name="title",unique = true,nullable = false)
     private String title;
@@ -29,11 +29,11 @@ public class NewsItem {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
