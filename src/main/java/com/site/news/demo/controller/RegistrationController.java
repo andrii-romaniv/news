@@ -24,7 +24,7 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addNewUser(User user, @RequestParam("file") MultipartFile image) throws IOException {
-        if(userService.addUser(user,image))return "redirect:/login";
+        if(userService.addUser(user,image)!=null)return "redirect:/login";
         else return "registration";
     }
 

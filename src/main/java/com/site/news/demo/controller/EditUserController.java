@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class EditUserController {
 @Autowired
 UserRepo userRepo;
+
     @GetMapping("{id}")
     public String editUser(@PathVariable long id,Model model){
         model.addAttribute("user",userRepo.findOne(id));
@@ -21,12 +22,11 @@ UserRepo userRepo;
     }
 
     @PostMapping
-    public String save(@RequestParam long id, Authority authority){
+    public String addNewAuthority(@RequestParam long id, Authority authority){
         User user=userRepo.findOne(id);
         user.setAuthority(authority);
         userRepo.save(user);
         return "redirect:/users";
     }
-
 
 }
