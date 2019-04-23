@@ -6,6 +6,9 @@
 </head>
 <body>
 <div><a th:href="@{/}">Home</a></div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <div>
     <h3 th:text="${newsItem.title}" />
     <p><i th:text="${newsItem.date}"/></p>
@@ -19,5 +22,11 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <input type="text" name="content" placeholder="Enter your comment ..."/> <button type="submit">Send</button>
 </form>
+<div th:each="it:${comments}">
+    <p><b th:text="${it.author.username}"/></p>
+    <p><span th:text="${it.content}"/></p>
+    <p><i th:text="${it.data}"></i></p>
+    <hr/>
+</div>
 </body>
 </html>
