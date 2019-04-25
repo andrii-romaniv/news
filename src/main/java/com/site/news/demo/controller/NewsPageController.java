@@ -2,8 +2,8 @@ package com.site.news.demo.controller;
 
 import com.site.news.demo.domain.Comment;
 import com.site.news.demo.domain.NewsItem;
-import com.site.news.demo.repository.CommentRepo;
-import com.site.news.demo.repository.NewsItemRepo;
+import com.site.news.demo.repository.CommentRepository;
+import com.site.news.demo.repository.NewsItemRepository;
 import com.site.news.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,19 +18,19 @@ import java.util.Date;
 public class NewsPageController {
 
     @Autowired
-    NewsItemRepo newsItemRepo;
+    NewsItemRepository newsItemRepository;
 
     @Autowired
-    CommentRepo commentRepo;
+    CommentRepository commentRepository;
 
     @Autowired
     UserService userService;
 
     @GetMapping("{title}")
     public String newsPage(@PathVariable String title, Model model){
-        NewsItem newsItem=newsItemRepo.findByTitle(title);
-        model.addAttribute("newsItem",newsItemRepo.findByTitle(title));
-        model.addAttribute("comments",commentRepo.findAllByNewsOrderByIdDesc(newsItem));
+        NewsItem newsItem= newsItemRepository.findByTitle(title);
+        model.addAttribute("newsItem", newsItemRepository.findByTitle(title));
+        model.addAttribute("comments", commentRepository.findAllByNewsOrderByIdDesc(newsItem));
         return "newsPage";
     }
 
@@ -38,12 +38,12 @@ public class NewsPageController {
     public String addComment(Comment comment, @RequestParam Long id, HttpServletRequest request){
         if(comment.getContent().isEmpty()) return "redirect:"+request.getHeader("referer");
         else {
-            long commentId = commentRepo.count();
+            long commentId = commentRepository.count();
             comment.setId(++commentId);
-            comment.setAuthor(userService.getCorrectUser());
-            comment.setNews(newsItemRepo.findOne(id));
+            comment.setAuthor(userService.getActiveUser());
+            comment.setNews(newsItemRepository.findOne(id));
             comment.setData(new Date());
-            commentRepo.save(comment);
+            commentRepository.save(comment);
             return "redirect:" + request.getHeader("referer");
         }
     }

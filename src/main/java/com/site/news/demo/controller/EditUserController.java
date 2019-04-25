@@ -2,7 +2,7 @@ package com.site.news.demo.controller;
 
 import com.site.news.demo.domain.Authority;
 import com.site.news.demo.domain.User;
-import com.site.news.demo.repository.UserRepo;
+import com.site.news.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/edituser")
 public class EditUserController {
 @Autowired
-UserRepo userRepo;
+UserRepository userRepository;
 
     @GetMapping("{id}")
     public String editUser(@PathVariable long id,Model model){
-        model.addAttribute("user",userRepo.findOne(id));
+        model.addAttribute("user", userRepository.findOne(id));
         model.addAttribute("roles", Authority.values());
         return "editUser";
     }
 
     @PostMapping
     public String addNewAuthority(@RequestParam long id, Authority authority){
-        User user=userRepo.findOne(id);
+        User user= userRepository.findOne(id);
         user.setAuthority(authority);
-        userRepo.save(user);
+        userRepository.save(user);
         return "redirect:/users";
     }
 

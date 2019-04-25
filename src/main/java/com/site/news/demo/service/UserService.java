@@ -2,7 +2,7 @@ package com.site.news.demo.service;
 
 import com.site.news.demo.domain.Authority;
 import com.site.news.demo.domain.User;
-import com.site.news.demo.repository.UserRepo;
+import com.site.news.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,34 +17,34 @@ import java.io.IOException;
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    FileService fileService;
+    FileServiceImplement fileService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     public User addUser(User user,MultipartFile image) throws IOException {
         if(user==null )return null;
         else
-            if(userRepo.findByUsername(user.getUsername())!=null)return null;
+            if(userRepository.findByUsername(user.getUsername())!=null)return null;
                 else{
-            if(userRepo.count()==0)user.setAuthority(Authority.ROLE_ADMIN);
+            if(userRepository.count()==0)user.setAuthority(Authority.ROLE_ADMIN);
             else user.setAuthority(Authority.ROLE_USER);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setImage(fileService.uploadFile(image));
-            userRepo.save(user);
+            userRepository.save(user);
             return user;
         }
     }
 
-    public User getCorrectUser(){
+    public User getActiveUser(){
         return  (User) SecurityContextHolder
                 .getContext()
                 .getAuthentication()

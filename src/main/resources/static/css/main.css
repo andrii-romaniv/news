@@ -1,0 +1,10 @@
+#newsCard{
+    max-width: 790px;
+}
+
+.tagBox{
+    text-align:center;
+    border-radius:15px;
+    background: red;
+    width:140px;
+}
