@@ -1,19 +1,21 @@
 package com.site.news.demo.controller;
 
-import com.site.news.demo.domain.Authority;
 import com.site.news.demo.domain.User;
-import com.site.news.demo.repository.UserRepo;
+import com.site.news.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collections;
+import java.io.IOException;
 
 @Controller
 public class RegistrationController {
+
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
     @GetMapping("/registration")
     public String registration(){
@@ -21,9 +23,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addNewUser(User user){
-        user.setAuthority(Authority.ROLE_USER);
-        userRepo.save(user);
-        return "redirect:/login";
+    public String addNewUser(User user, @RequestParam("file") MultipartFile image) throws IOException {
+        if(userService.addUser(user,image)!=null)return "redirect:/login";
+        else return "registration";
     }
+
 }

@@ -2,9 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Login page</title>
+    <title>Users panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/login.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
 </head>
 <body>
@@ -16,14 +15,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-                <a class="nav-link" th:href="@{/}">Home</a>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/addnews}">Add news</a>
+                <a class="nav-link" th:href="@{/addnews}">
+                    Add news
+                    <span class="sr-only">(current)</span>
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">Users panel</a>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/users}">
+                    Users panel
+                    <span class="sr-only">(current)</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/registration}">Registration</a>
@@ -34,25 +39,40 @@
         </form>
     </div>
 </nav>
-<div th:if="${param.error}">
-    <script>alert('Invalid username and password.');</script>
-</div>
-<div class="login-form">
-<form  th:action="@{/login}" method="post">
-    <h2 class="text-center">Log in</h2>
-    <div class="form-group">
-        <input class="form-control" type="text" name="username" placeholder="Enter your name"/>
-    </div>
-    <div class="form-group">
-        <input class="form-control" type="password" name="password" placeholder="Enter your password"/>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" value="Sign In">Sign In</button>
-    </div>
+<div class="container mt-4">
+<form class="form-inline" action="find" method="post">
+    <input class="form-control mr-sm-2" type="text" name="find" placeholder="Enter need name"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button class="btn btn-primary" type="submit" >Find</button>
 </form>
-    <p class="text-center"><a th:href="@{/registration}" >Create an Account</a></p>
-</div>
+<table class="table mt-2">
+    <thead class="thead-dark">
+    <tr>
+    <th scope="col" align="left">User </th>
+    <th scope="col" align="left">Name</th>
+    <th scope="col" align="left">Role</th>
+    <th scope="col" align="left">Email</th>
+    <th scope="col" align="left"></th>
+    <th scope="col" align="left"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:each="it:${users}">
+        <tr>
+            <td><img th:src="@{/img/{image}(image=${it.image})}" height="75" width="75" class="rounded"/></td>
+            <td th:text="${it.username}"/>
+            <td th:text="${it.authority.getAuthority()}"/>
+            <td th:text="${it.email}"/>
+            <td><a class="btn btn-primary" role="button"
+                   th:href="@{/edituser/{id}(id=${it.id})}">Edit</a></td>
+            <td><a class="btn btn-primary" role="button"
+                   th:href="@{/users/{id}(id=${it.id})}">Delete</a></td>
 
+        </tr>
+    </div>
+    </tbody>
+</table>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
