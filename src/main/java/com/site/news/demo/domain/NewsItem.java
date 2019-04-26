@@ -21,7 +21,7 @@ public class NewsItem {
     private String title;
     @Column(name="tag",nullable = false)
     private String tag;
-    @Column(name="content",nullable = false)
+    @Column(name="content",nullable = false,length = 2550)
     private String content;
     @Column(name="image",nullable = false)
     private String image;
