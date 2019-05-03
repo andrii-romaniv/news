@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <title>Registration page</title>
@@ -18,17 +18,11 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/addnews}">Add news</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">Users panel</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/registration}">Registration<span class="sr-only">(current)</span></a>
-            </li>
         </ul>
-        <form th:action="@{/logout}" method="post">
+        <div sec:authorize="!isAuthenticated()" >
+            <a class="btn btn-light mr-5" role="button" th:href="@{/login}">Login</a>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
         </form>
     </div>
@@ -36,29 +30,34 @@
 
 <div class="container mt-4">
 <h4>Create your personal account:</h4>
-<form th:action="@{/registration}" method="post" enctype="multipart/form-data">
+<form th:action="@{/registration}" th:object="${user}" method="post" enctype="multipart/form-data">
 <div class="form-row">
-
     <div class="custom-file col-sm-5 mt-4">
         <input class="custom-file-input" id="customFileLang" type="file" name="file" accept="image/*"/>
         <label for="customFileLang" class="custom-file-label">Input your profile image</label>
     </div>
-
     <div class="form-group col-sm-10 mt-4">
         <label> User name :
-            <input type="text" class="form-control" name="username" placeholder="Enter your name:"/>
+            <input th:class="${#fields.hasErrors('username')}?'form-control is-invalid':'form-control'" type="text" th:field="*{username}" placeholder="Enter your name:"/>
+            <div class="invalid-feedback">
+                <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</label>
+            </div>
         </label>
     </div>
-
     <div class="form-group col-sm-10">
         <label> Password:
-            <input class="form-control" type="password" name="password" placeholder="Enter your password:"/>
+            <input th:class="${#fields.hasErrors('password')}?'form-control is-invalid':'form-control'" type="password" th:field="*{password}" placeholder="Enter your password:"/>
+            <div class="invalid-feedback">
+                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</label>
+            </div>
         </label>
     </div>
-
     <div class="form-group col-sm-10">
         <label> Email:
-            <input class="form-control" type="text" name="email" placeholder="Enter your email:"/>
+            <input th:class="${#fields.hasErrors('email')}?'form-control is-invalid':'form-control'" type="text" th:field="*{email}" placeholder="Enter your email:"/>
+            <div class="invalid-feedback">
+                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</label>
+            </div>
         </label>
     </div>
 </div>
