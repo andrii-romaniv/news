@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <title>Users panel</title>
@@ -34,7 +34,10 @@
                 <a class="nav-link" th:href="@{/registration}">Registration</a>
             </li>
         </ul>
-        <form th:action="@{/logout}" method="post">
+        <div sec:authorize="isAuthenticated()">
+            <span class="navbar-text text-white mr-2" th:text="${#authentication.getPrincipal().getUsername()}"/>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
         </form>
     </div>

@@ -28,7 +28,10 @@
                 <a class="nav-link" th:href="@{/users}">Users panel</a>
             </li>
         </ul>
-        <form th:action="@{/logout}" method="post">
+        <div sec:authorize="isAuthenticated()">
+            <span class="navbar-text text-white mr-2" th:text="${#authentication.getPrincipal().getUsername()}"/>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
         </form>
     </div>

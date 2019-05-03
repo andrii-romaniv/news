@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -28,14 +28,16 @@
                 <a class="nav-link" th:href="@{/registration}">Registration</a>
             </li>
         </ul>
-        <form th:action="@{/logout}" method="post">
+        <div sec:authorize="isAuthenticated()">
+            <span class="navbar-text text-white mr-2" th:text="${#authentication.getPrincipal().getUsername()}"/>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
         </form>
     </div>
 </nav>
 
 <div class="container mt-4">
-
 <form th:action="@{/edituser}" method="post">
     <input type="hidden" name="id" th:value="${user.id}"/>
     <p style="font: bold 16pt sans-serif;" th:text="${user.username}"/>
@@ -48,7 +50,6 @@
     </div>
     <p><button class="btn btn-primary" type="submit">Save</button></p>
 </form>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

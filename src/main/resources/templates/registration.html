@@ -23,6 +23,7 @@
             <a class="btn btn-light mr-5" role="button" th:href="@{/login}">Login</a>
         </div>
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
         </form>
     </div>
