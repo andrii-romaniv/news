@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -24,11 +24,8 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link" th:href="@{/users}">Users panel</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/registration}">Registration</a>
             </li>
         </ul>
         <form th:action="@{/logout}" method="post">
@@ -38,16 +35,22 @@
 </nav>
 <div class="container mt-4 ">
     <h4>Add news:</h4>
-    <form th:action="@{/addnews}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/addnews}" th:object="${newsItem}" method="post" enctype="multipart/form-data" >
         <div class="form-row">
     <div class="form-group col-sm-10 mt-4">
         <label class="inputText"> Title :
-        <input class="form-control" type="text" name="title" placeholder="Enter a title..."/>
+        <input th:class="${#fields.hasErrors('title')}?'form-control is-invalid':'form-control'" type="text" th:field="*{title}"  placeholder="Enter a title..."/>
+            <div class="invalid-feedback">
+                <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</label>
+            </div>
         </label>
     </div>
         <div class="form-group col-sm-10">
             <label class="inputText"> Tag :
-            <input class="form-control" type="text" name="tag" placeholder="Enter a tag..."/>
+            <input th:class="${#fields.hasErrors('tag')}?'form-control is-invalid':'form-control'" type="text" th:field="*{tag}" placeholder="Enter a tag..."/>
+                <div class="invalid-feedback">
+                    <label th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">Tag Error</label>
+                </div>
             </label>
         </div>
 
@@ -57,7 +60,10 @@
     </div>
             <div class="form-group col-sm-10 mt-4" >
                 <label class="inputText" for="formTextArea">Enter a text:</label>
-                <textarea class="form-control" name="content" id="formTextArea"></textarea>
+                <textarea th:class="${#fields.hasErrors('content')}?'form-control is-invalid':'form-control'" th:field="*{content}" id="formTextArea"></textarea>
+                <div class="invalid-feedback">
+                    <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error</label>
+                </div>
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Publish</button>
