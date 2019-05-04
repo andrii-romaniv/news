@@ -1,0 +1,29 @@
+body{
+    background: #f7f7f7;
+}
+
+h1{
+    margin-top:150px;
+    margin-left:5%;
+    position:relative;
+}
+
+h4{
+    position:absolute;
+    left:10%;
+}
+
+a{
+position:absolute;
+top:35%;
+margin-top:15px;
+left:45%;
+}
+
+img{
+position:absolute;
+top:50%;
+right:35%;
+height:auto;
+max-width:320px;
+}
