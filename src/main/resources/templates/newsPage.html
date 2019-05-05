@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -18,17 +18,23 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link" th:href="@{/addnews}">Add news</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link" th:href="@{/users}">Users panel</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/registration}">Registration</a>
-            </li>
         </ul>
-        <form th:action="@{/logout}" method="post">
+        <div sec:authorize="!isAuthenticated()">
+            <a class="btn btn-light mr-2" role="button" th:href="@{/registration}">Registration</a>
+        </div>
+        <div sec:authorize="!isAuthenticated()" >
+            <a class="btn btn-light mr-5" role="button" th:href="@{/login}">Login</a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <span class="navbar-text text-white mr-2" th:text="${#authentication.getPrincipal().getUsername()}"/>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
         </form>
     </div>

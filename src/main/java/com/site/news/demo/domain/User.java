@@ -3,6 +3,9 @@ package com.site.news.demo.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,12 +25,18 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "username", unique = true, nullable = false)
+    @NotBlank(message = "User name cannot be empty")
+    @Length(max = 255,message = "User name is too long")
     private String username;
 
     @Column(name = "email", unique = true, nullable = false)
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "email cannot be empty")
     private String email;
 
     @Column(name = "password", nullable = false)
+    @NotBlank(message = "Password cannot be empty")
+    @Length(max = 255,message = "Password is too long")
     private String password;
     
     private Authority authority;
@@ -69,43 +78,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Authority getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(Authority authority) {
-        this.authority = authority;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
