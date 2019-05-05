@@ -3,6 +3,8 @@ package com.site.news.demo.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,16 +21,17 @@ public class Comment {
     private Long id;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="user_id", nullable = false)
     private User author;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="news_item_id", nullable = false)
     private NewsItem news;
 
-    @Column(name="content", nullable = false)
+    @Column(name="content", nullable = false,length = 550)
     private String content;
-
     @Column(name="create_date",nullable = false)
     private Date data;
 

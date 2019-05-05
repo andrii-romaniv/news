@@ -1,11 +1,11 @@
-package com.site.news.demo.config;
+package com.site.news.demo.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
-public class MvcConfig extends WebMvcConfigurationSupport {
+public class MvcConfiguration extends WebMvcConfigurationSupport {
     @Value("${upload.path}")
     private String uploadPath;
 

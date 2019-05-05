@@ -3,6 +3,8 @@ package com.site.news.demo.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,64 +18,21 @@ public class NewsItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column(name="title",unique = true,nullable = false)
+    @NotBlank(message = "News title cannot be empty")
+    @Length(max = 255, message = "Title too long")
     private String title;
     @Column(name="tag",nullable = false)
+    @NotBlank(message = "News tag cannot be empty")
+    @Length(max = 255, message = "Tag too long")
     private String tag;
-    @Column(name="content",nullable = false)
+    @Column(name="content",nullable = false,length = 2550)
+    @NotBlank(message = "Content for news cannot be empty")
+    @Length(max = 2550, message = "Text content too long")
     private String content;
     @Column(name="image",nullable = false)
     private String image;
     @Column(name="date",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
