@@ -2,6 +2,7 @@ package com.site.news.demo.service;
 
 import com.site.news.demo.domain.Authority;
 import com.site.news.demo.domain.User;
+import com.site.news.demo.exception.UserNotFoundException;
 import com.site.news.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,9 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -42,6 +45,21 @@ public class UserService implements UserDetailsService {
             userRepository.save(user);
             return user;
         }
+    }
+
+    public User updateUser(long id,User user){
+        User editedUser=getUserObjectById(id).get();
+        if(StringUtils.isEmpty(user.getImage()))user.setImage(editedUser.getImage());
+        if(StringUtils.isEmpty(user.getAuthority()))user.setAuthority(editedUser.getAuthority());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return user;
+    }
+
+    public Optional<User> getUserObjectById(long id){
+        Optional<User> user= Optional.ofNullable(userRepository.findOne(id));
+        if(!user.isPresent())throw new UserNotFoundException(id);
+        return user;
     }
 
     public User getActiveUser(){
