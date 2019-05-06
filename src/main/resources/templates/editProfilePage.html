@@ -56,23 +56,36 @@
         <div class="col-md-9 personal-info">
             <h3>Personal info:</h3>
             <form class="form-horizontal" th:action="@{/settings/update}" th:object="${user}" method="post">
-                <input type="hidden" name="id" th:value="${user.id}"/>
+                <input type="hidden" name="id" th:value="*{id}"/>
+                <input type="hidden" name="image" th:value="*{image}"/>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Username:</label>
                         <div class="col-md-8">
-                            <input type="text" th:field="*{username}"/>
+                            <input th:class="${#fields.hasErrors('username')}?'form-control is-invalid':'form-control'"
+                                   type="text" th:field="*{username}"/>
+                            <div class="invalid-feedback">
+                                <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</label>
+                            </div>
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Password:</label>
                         <div class="col-md-8">
-                            <input type="password" th:field="*{password}"/>
+                            <input th:class="${#fields.hasErrors('password')}?'form-control is-invalid':'form-control'"
+                                   type="password" th:field="*{password}"/>
+                            <div class="invalid-feedback">
+                                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</label>
+                            </div>
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Email:</label>
                         <div class="col-md-8">
-                            <input type="text" th:field="*{email}"/>
+                            <input th:class="${#fields.hasErrors('email')}?'form-control is-invalid':'form-control'"
+                                   type="text" th:field="*{email}"/>
+                            <div class="invalid-feedback">
+                                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</label>
+                            </div>
                         </div>
                 </div>
                 <button class="btn btn-primary ml-3" type="submit">Update</button>
