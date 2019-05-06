@@ -19,6 +19,7 @@ import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -54,6 +55,12 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
+    }
+
+    public void updateProfileImage(long id,MultipartFile image) throws IOException {
+        Optional<User> user=getUserObjectById(id);
+        user.get().setImage(fileService.uploadFile(image));
+        userRepository.save(user.get());
     }
 
     public Optional<User> getUserObjectById(long id){
