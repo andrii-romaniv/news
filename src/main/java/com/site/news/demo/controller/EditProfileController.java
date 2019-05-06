@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
@@ -22,10 +23,16 @@ public class editProfileController {
 
     @GetMapping("{id}")
     @PreAuthorize("#id == principal.id")
-    public String editProfile (@PathVariable long id, Model model){
-        Optional<User> user= Optional.ofNullable(userRepository.findOne(id));
+    public String editProfile (@PathVariable long id,Optional<User> user ,Model model){
+        user= Optional.ofNullable(userRepository.findOne(id));
         if(!user.isPresent())throw new UserNotFoundException(id);
         model.addAttribute("user", userRepository.findOne(id));
         return "editProfilePage";
     }
+
+    @PostMapping("/load")
+    public String loadImage(){
+        return "editProfilePage";
+    }
+
 }
