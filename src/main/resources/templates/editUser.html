@@ -26,7 +26,11 @@
             </li>
         </ul>
         <div sec:authorize="isAuthenticated()">
-            <span class="navbar-text text-white mr-2" th:text="${#authentication.getPrincipal().getUsername()}"/>
+            <a class="navbar-text text-white mr-2"
+               th:text="${#authentication.getPrincipal().getUsername()}"
+               th:href="@{/settings/{id}(id=${#authentication.getPrincipal().getId()})}"
+               style="text-decoration:none;"
+            />
         </div>
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn btn-light mr-5" type="submit">Sign Out</button>
