@@ -31,7 +31,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+        Optional<User> user= Optional.ofNullable(userRepository.findByUsername(username));
+        if(!user.isPresent())throw new UsernameNotFoundException("Not found user with name "+username);
+        return user.get();
     }
 
     public User addUser(User user,MultipartFile image) throws IOException {
